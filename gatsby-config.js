@@ -3,7 +3,7 @@
  */
 module.exports = {
   siteMetadata: {
-    title: `pw-notes`,
+    title: `PW Notes`,
     siteUrl: `https://www.yourdomain.tld`,
   },
   plugins: [
