@@ -15,7 +15,12 @@ module.exports = {
         icon: "src/images/icon.png",
       },
     },
-    "gatsby-plugin-mdx",
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`, `.md`],
+      },
+    },
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     {
@@ -39,6 +44,13 @@ module.exports = {
       options: {
         name: `blog`,
         path: `${__dirname}/blog`,
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: `notes`,
+        path: `${__dirname}/notes`,
       },
     },
   ],

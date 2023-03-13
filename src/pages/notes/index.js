@@ -2,18 +2,16 @@ import * as React from "react";
 import { Link, graphql } from "gatsby";
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
+import slugify from "@sindresorhus/slugify";
 
-const BlogPage = ({ data }) => {
+const NotesPage = ({ data }) => {
   return (
-    <Layout pageTitle="My Blog Posts">
+    <Layout pageTitle="My Notes">
       {data.allMdx.nodes.map((node) => (
         <article key={node.id}>
           <h2>
-            <Link to={`/blog/${node.frontmatter.slug}`}>
-              {node.frontmatter.title}
-            </Link>
+            <Link to={`/notes/${node.fields.slug}`}>{node.fields.title}</Link>
           </h2>
-          <p>Posted: {node.frontmatter.date}</p>
           <p>{node.excerpt}</p>
         </article>
       ))}
@@ -24,14 +22,13 @@ const BlogPage = ({ data }) => {
 export const query = graphql`
   query {
     allMdx(
-      filter: { internal: { contentFilePath: { regex: "//blog//" } } }
+      filter: { internal: { contentFilePath: { regex: "//notes//" } } }
       sort: { frontmatter: { date: DESC } }
     ) {
       nodes {
-        frontmatter {
-          date(formatString: "MMMM D, YYYY")
-          title
+        fields {
           slug
+          title
         }
         id
         excerpt
@@ -40,6 +37,6 @@ export const query = graphql`
   }
 `;
 
-export const Head = () => <Seo title="My Blog Posts" />;
+export const Head = () => <Seo title="My Notes" />;
 
-export default BlogPage;
+export default NotesPage;
