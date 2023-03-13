@@ -2,7 +2,6 @@ import * as React from "react";
 import { Link, graphql } from "gatsby";
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
-import slugify from "@sindresorhus/slugify";
 
 const NotesPage = ({ data }) => {
   return (
@@ -22,7 +21,7 @@ const NotesPage = ({ data }) => {
 export const query = graphql`
   query {
     allMdx(
-      filter: { internal: { contentFilePath: { regex: "//notes//" } } }
+      filter: { fields: { type: { eq: "notes" } } }
       sort: { frontmatter: { date: DESC } }
     ) {
       nodes {

@@ -5,6 +5,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
   if (node.internal.type === `Mdx`) {
     const parent = getNode(node.parent);
+    const type = parent.sourceInstanceName;
     const relativeDir = parent.relativeDirectory;
     const slug = relativeDir
       ? `${slugify(relativeDir)}/${slugify(parent.name)}`
@@ -14,10 +15,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       name: "slug",
       value: slug,
     });
+    createNodeField({ node, name: "title", value: parent.name });
     createNodeField({
       node,
-      name: "title",
-      value: parent.name,
+      name: "type",
+      value: type,
     });
   }
 };

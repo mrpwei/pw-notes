@@ -24,7 +24,7 @@ const BlogPage = ({ data }) => {
 export const query = graphql`
   query {
     allMdx(
-      filter: { internal: { contentFilePath: { regex: "//blog//" } } }
+      filter: { fields: { type: { eq: "blog" } } }
       sort: { frontmatter: { date: DESC } }
     ) {
       nodes {
