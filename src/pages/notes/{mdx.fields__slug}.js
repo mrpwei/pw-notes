@@ -15,9 +15,6 @@ export const query = graphql`
         title
       }
     }
-    directory {
-      relativeDirectory
-    }
   }
 `;
 

@@ -1,4 +1,6 @@
 const slugify = require(`@sindresorhus/slugify`);
+const { createFilePath } = require("gatsby-source-filesystem");
+const path = require("path");
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
@@ -6,10 +8,18 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   if (node.internal.type === `Mdx`) {
     const parent = getNode(node.parent);
     const type = parent.sourceInstanceName;
-    const relativeDir = parent.relativeDirectory;
-    const slug = relativeDir
-      ? `${slugify(relativeDir)}/${slugify(parent.name)}`
-      : `${slugify(parent.name)}`;
+    const slugTemp = createFilePath({
+      node,
+      getNode,
+      basePath: `notes`,
+      trailingSlash: false,
+    });
+    const slugArr = slugTemp.slice(1).split("/");
+    const slug = slugArr
+      .map((item) => {
+        return slugify(item);
+      })
+      .join("/");
     createNodeField({
       node,
       name: "slug",

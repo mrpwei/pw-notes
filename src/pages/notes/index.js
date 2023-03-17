@@ -2,10 +2,12 @@ import * as React from "react";
 import { Link, graphql } from "gatsby";
 import Layout from "../../components/layout";
 import Seo from "../../components/seo";
+import Sidebar from "../../components/sidebar";
 
 const NotesPage = ({ data }) => {
   return (
     <Layout pageTitle="My Notes">
+      <Sidebar />
       {data.allMdx.nodes.map((node) => (
         <article key={node.id}>
           <h2>
